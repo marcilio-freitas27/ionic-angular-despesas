@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
   <ion-content class="ion-padding" [fullscreen]="true">
-    <form [formGroup]="formGroup">
+    <form [formGroup]="formGroup" [hidden]="!mostrar">
       <ion-list>
         <ion-item>
           <ion-input label="Motivo" formControlName="motivo"></ion-input>
@@ -18,39 +18,37 @@
         <ion-list>
           <ion-item>
             <ion-select label="Tipo" placeholder="Selecionar" formControlName="tipo">
-              <ion-select-option value="apples">Apples</ion-select-option>
-              <ion-select-option value="oranges">Oranges</ion-select-option>
-              <ion-select-option value="bananas">Bananas</ion-select-option>
+              <ion-select-option *ngFor="let t of tipo" [value]="t">{{t}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
+        <ion-item class="ion-text-center">
+          <ion-datetime></ion-datetime>
+        </ion-item>
       </ion-list>
     </form>
-      <br />
-      <ion-item class="ion-text-center">
-        <ion-datetime></ion-datetime>
-      </ion-item>
+
       <br />
 
       <ion-fab vertical="bottom" horizontal="start">
-        <ion-fab-button>
+        <ion-fab-button (click)="adicionar()">
           <ion-icon name="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
 
       <ion-fab vertical="bottom" horizontal="center">
-        <ion-fab-button>
-          <ion-icon name="add"></ion-icon>
+        <ion-fab-button  (click)="ver()">
+          <ion-icon name="eye-outline"></ion-icon>
         </ion-fab-button>
       </ion-fab>
 
       <ion-fab vertical="bottom" horizontal="end">
-        <ion-fab-button name="add">
-          <ion-icon name="add-outline"></ion-icon>
+        <ion-fab-button (click)="limpar()" name="add">
+          <ion-icon name="trash-bin-outline"></ion-icon>
         </ion-fab-button>
       </ion-fab>
-    
+
     <br />
-      <app-explore-container name="Tab 1 page"></app-explore-container>
+      <!-- <app-explore-container></app-explore-container> -->
   </ion-content>
 
