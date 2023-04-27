@@ -1,6 +1,8 @@
+import { DespesasService } from './../service/despesas.service';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { Despesa } from '../model/despesa';
 
 @Component({
   selector: 'app-tab2',
@@ -10,7 +12,18 @@ import { ExploreContainerComponent } from '../explore-container/explore-containe
   imports: [IonicModule, ExploreContainerComponent]
 })
 export class Tab2Page {
+  despesas: any[];
+  constructor(public despesaService: DespesasService) {
+    this.despesas = [];
+  }
 
-  constructor() {}
+  ngOnInit(): void{
+    this.pegarDespesas();
+  }
+  
+  pegarDespesas():any[]{
+    this.despesas = this.despesaService.obterTodasDespesas();
+    return this.despesas;
+  }
 
 }

@@ -5,13 +5,13 @@ import { Despesa } from '../model/despesa';
   providedIn: 'root'
 })
 export class DespesasService {
-  despesas: Despesa[];
+  despesas: any[];
 
   constructor() {
     this.despesas = [];
    }
 
-   adicionar(desp: Despesa):boolean{
+   adicionar(desp: any[]):boolean{
     if(desp != null){
       this.despesas.push(desp);
       console.log(this.despesas);
@@ -20,7 +20,7 @@ export class DespesasService {
     return false;
    }
 
-   obterTodasDespesas(): Despesa[]{
+   obterTodasDespesas(): any[]{
     return this.despesas;
    }
 }

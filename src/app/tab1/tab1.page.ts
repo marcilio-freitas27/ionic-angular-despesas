@@ -6,8 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TipoDespesaEnum } from '../enum/tipo-despesa.enum';
-
-
+import { DespesasService } from '../service/despesas.service';
 
 @Component({
   selector: 'app-tab1',
@@ -25,6 +24,7 @@ export class Tab1Page {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    public despesaService: DespesasService
   ) {
     this.formGroup = formBuilder.group({
       motivo: ['',[Validators.required]],
@@ -37,7 +37,8 @@ export class Tab1Page {
   }
 
   adicionar(){
-    console.log(this.formGroup.value);
+    this.despesaService.adicionar(this.formGroup.value);
+    // console.log(this.formGroup.value);
   }
 
   ver(){
