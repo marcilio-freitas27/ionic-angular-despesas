@@ -21,14 +21,16 @@ export class Tab1Page {
   tipo: string[];
   isAlertOpen = false;
   public alertButtons = ['OK'];
-  valorMotivo: any
+  valorMotivo: any;
+  message: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     public despesaService: DespesasService
   ) {
-    this.formGroup = formBuilder.group({
+    this.message = "";
+    this.formGroup = this.formBuilder.group({
       motivo: ['',[Validators.required]],
       valor: [0.0,[Validators.required]],
       tipo: [TipoDespesaEnum.OUTRO,[Validators.required]],
@@ -44,16 +46,20 @@ export class Tab1Page {
   }
 
   adicionar(): boolean{
-    if(this.valorMotivo !== null && this.formGroup.valid){
-      console.log(this.formGroup.value.motivo)
+    if(this.valorMotivo !== null && 
+      this.formGroup.valid && 
+      !this.despesaService.verificarDuplicidade(this.formGroup.value) ){
       this.despesaService.adicionar(this.formGroup.value);
+      this.message = 'Despesa cadastrada com sucesso'; 
       this.setOpen(true);
       return true;
     }else{
+      this.message = 'Não foi possível cadastrar a despesa.';
       this.setOpen(true);
       return false;
     }
   }
+  
 
   ver(){
     this.router.navigate(['/tabs/tab2'])

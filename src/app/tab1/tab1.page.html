@@ -33,28 +33,27 @@
         [isOpen]="isAlertOpen"
         header="Alert"
         subHeader="Atenção"
-        [message]="formGroup.valid || despesaService.verificarDuplicidade(formGroup.value.motivo) ? 
-                  'Despesa cadastrada com sucesso' : 'Não foi possível cadastrar a despesa.'"
+        [message]="message"
         [buttons]="alertButtons"
         (didDismiss)="setOpen(false)"
       ></ion-alert>
     </form>
   </ion-content>
-  
+
   <ion-footer [translucent]="true">
     <ion-toolbar>
       <ion-tabs>
         <ion-tab-bar slot="bottom">
           <ion-tab-button (click)="adicionar()">
-              <ion-icon name="add"></ion-icon>  
+              <ion-icon name="add"></ion-icon>
             <ion-label>Add</ion-label>
           </ion-tab-button>
-      
-          <ion-tab-button (click)="ver()">  
+
+          <ion-tab-button (click)="ver()">
               <ion-icon name="eye-outline"></ion-icon>
             <ion-label>Ver</ion-label>
           </ion-tab-button>
-      
+
           <ion-tab-button (click)="limpar()">
             <ion-icon name="trash-bin-outline"></ion-icon>
             <ion-label>Limpar</ion-label>
