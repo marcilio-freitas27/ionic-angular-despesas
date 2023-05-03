@@ -2,7 +2,7 @@ import { Router, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonDatetime, IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TipoDespesaEnum } from '../enum/tipo-despesa.enum';
@@ -23,6 +23,7 @@ export class Tab1Page {
   public alertButtons = ['OK'];
   valorMotivo: any;
   message: string;
+  date: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,18 +31,25 @@ export class Tab1Page {
     public despesaService: DespesasService
   ) {
     this.message = "";
+    this.date = new Date().toISOString();
     this.formGroup = this.formBuilder.group({
       motivo: ['',[Validators.required]],
       valor: [0.0,[Validators.required]],
       tipo: [TipoDespesaEnum.OUTRO,[Validators.required]],
-      data: [new Date().toISOString(),[Validators.required]],
+      data: [this.date,[Validators.required]],
       desconto: [0.0,[Validators.required]]
     });
     this.valorMotivo = this.formGroup.value.motivo;
     this.tipo = Object.values(TipoDespesaEnum);
+    this.date = this.formGroup.value.date;
+    
   }
 
-  setOpen(isOpen: boolean) {
+  ngOnInit() {
+    
+  }
+
+  setOpen(isOpen: boolean): void {
     this.isAlertOpen = isOpen;
   }
 
@@ -50,7 +58,7 @@ export class Tab1Page {
       this.formGroup.valid && 
       !this.despesaService.verificarDuplicidade(this.formGroup.value) ){
       this.despesaService.adicionar(this.formGroup.value);
-      this.message = 'Despesa cadastrada com sucesso'; 
+      this.message = 'Despesa cadastrada com sucesso.'; 
       this.setOpen(true);
       return true;
     }else{
@@ -60,12 +68,11 @@ export class Tab1Page {
     }
   }
   
-
-  ver(){
+  ver(): void{
     this.router.navigate(['/tabs/tab2'])
   }
 
-  limpar(){
+  limpar(): void{
     this.formGroup.setValue(
       {
         motivo: '',
@@ -75,5 +82,11 @@ export class Tab1Page {
         desconto: 0.0
       }
     );
+  }
+
+  setDate(): void{
+    this.formGroup.value.data = this.formGroup.value.data.substring(0, 16).split("T").join(" ")
+    this.date = this.formGroup.value.data;
+    console.log('data', this.date);
   }
 }
