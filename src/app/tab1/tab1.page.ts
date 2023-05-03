@@ -18,8 +18,10 @@ import { DespesasService } from '../service/despesas.service';
 
 export class Tab1Page {
   formGroup: FormGroup;
-  mostrar: boolean;
   tipo: string[];
+  isAlertOpen = false;
+  public alertButtons = ['OK'];
+  valorMotivo: any
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,19 +32,30 @@ export class Tab1Page {
       motivo: ['',[Validators.required]],
       valor: [0.0,[Validators.required]],
       tipo: [TipoDespesaEnum.OUTRO,[Validators.required]],
-      data: [new Date().toISOString(),[Validators.required]]
+      data: [new Date().toISOString(),[Validators.required]],
+      desconto: [0.0,[Validators.required]]
     });
-    this.mostrar = true;
+    this.valorMotivo = this.formGroup.value.motivo;
     this.tipo = Object.values(TipoDespesaEnum);
   }
 
-  adicionar(){
-    this.despesaService.adicionar(this.formGroup.value);
-    // console.log(this.formGroup.value);
+  setOpen(isOpen: boolean) {
+    this.isAlertOpen = isOpen;
+  }
+
+  adicionar(): boolean{
+    if(this.valorMotivo !== null && this.formGroup.valid){
+      console.log(this.formGroup.value.motivo)
+      this.despesaService.adicionar(this.formGroup.value);
+      this.setOpen(true);
+      return true;
+    }else{
+      this.setOpen(true);
+      return false;
+    }
   }
 
   ver(){
-    // this.mostrar = !this.mostrar;
     this.router.navigate(['/tabs/tab2'])
   }
 
@@ -52,7 +65,8 @@ export class Tab1Page {
         motivo: '',
         valor: 0.0,
         tipo: TipoDespesaEnum.OUTRO,
-        data: new Date().toISOString()
+        data: new Date().toISOString(),
+        desconto: 0.0
       }
     );
   }

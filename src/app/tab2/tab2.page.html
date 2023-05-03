@@ -1,22 +1,33 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="voltar()"> 
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Lista de Taarefas</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 2</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-item>
+  <ion-item *ngFor="let despesa of despesas">
     <ion-label>
-      <p>{{despesas}}</p>
+      <ion-list *ngIf="despesas.length !== 0">
+        <ion-avatar>
+          <ion-item color="primary">
+            <img alt="task" src="http://simpleicon.com/wp-content/uploads/setting.png" />
+          </ion-item>
+        </ion-avatar>
+        <p>Motivo: {{despesa.motivo}}</p>
+        <p>Valor: {{despesa.valor}}</p>
+        <p>Tipo: {{despesa.tipo}}</p>
+        <p>Data: {{despesa.data}}</p>
+        <p>Desconto: {{despesa.desconto}}</p>
+      </ion-list>
     </ion-label>
   </ion-item>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
 </ion-content>

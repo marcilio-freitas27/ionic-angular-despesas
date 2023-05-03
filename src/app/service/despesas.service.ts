@@ -5,22 +5,28 @@ import { Despesa } from '../model/despesa';
   providedIn: 'root'
 })
 export class DespesasService {
-  despesas: any[];
+  despesas: Despesa[];
 
   constructor() {
     this.despesas = [];
    }
 
-   adicionar(desp: any[]):boolean{
-    if(desp != null){
-      this.despesas.push(desp);
-      console.log(this.despesas);
+   verificarDuplicidade(desp: Despesa){
+    if (this.despesas.find((element) => element.motivo == desp.motivo)) {
       return true;
     }
     return false;
    }
 
-   obterTodasDespesas(): any[]{
+   adicionar(desp: Despesa):boolean{
+    if(desp != null && !this.verificarDuplicidade(desp)){
+      this.despesas.push(desp);
+      return true;
+    }
+    return false;
+   }
+
+   obterTodasDespesas(): Despesa[]{
     return this.despesas;
    }
 }
