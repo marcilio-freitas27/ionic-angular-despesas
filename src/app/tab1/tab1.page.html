@@ -13,7 +13,7 @@
           <ion-input label="Motivo: " formControlName="motivo"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input label="Valor: " type="number" formControlName="valor"></ion-input>
+          <ion-input label="Valor: " type="number" formControlName="valor"></ion-input>R$
         </ion-item>
         <ion-item>
           <ion-input label="Desconto: " type="number" formControlName="desconto"></ion-input>%
@@ -26,7 +26,7 @@
           </ion-item>
         </ion-list>
         <ion-item class="ion-text-center">
-          <ion-datetime display-format="DD/MM/YYYY" (ionChange)="setDate()" formControlName="data"></ion-datetime>
+          <ion-datetime locale="pt-BR" (ionChange)="setDate()" formControlName="data"></ion-datetime>
         </ion-item>
       </ion-list>
       <ion-alert

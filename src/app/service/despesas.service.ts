@@ -11,15 +11,15 @@ export class DespesasService {
     this.despesas = [];
    }
 
-   verificarDuplicidade(desp: Despesa){
-    if (this.despesas.find((element) => element.motivo == desp.motivo)) {
+   verificarDuplicidade(desp: Despesa): boolean{
+    if (this.despesas.find((element) => element === desp)) {
       return true;
     }
     return false;
    }
 
    adicionar(desp: Despesa):boolean{
-    if(desp != null && !this.verificarDuplicidade(desp)){
+    if(desp !== null && !this.verificarDuplicidade(desp)){
       this.despesas.push(desp);
       return true;
     }

@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="voltar()"> 
+      <ion-button (click)="voltar()">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -23,10 +23,10 @@
           </ion-item>
         </ion-avatar>
         <p>Motivo: {{despesa.motivo}}</p>
-        <p>Valor: {{despesa.valor}}</p>
+        <p>Valor: {{despesa.valor | currency: "BRL"}}</p>
         <p>Tipo: {{despesa.tipo}}</p>
         <p>Data: {{despesa.data}}</p>
-        <p>Desconto: {{despesa.desconto}}</p>
+        <p>Desconto: {{(despesa.desconto)/100 | percent }}</p>
       </ion-list>
     </ion-label>
   </ion-item>

@@ -42,11 +42,11 @@ export class Tab1Page {
     this.valorMotivo = this.formGroup.value.motivo;
     this.tipo = Object.values(TipoDespesaEnum);
     this.date = this.formGroup.value.date;
-    
+
   }
 
   ngOnInit() {
-    
+
   }
 
   setOpen(isOpen: boolean): void {
@@ -54,11 +54,11 @@ export class Tab1Page {
   }
 
   adicionar(): boolean{
-    if(this.valorMotivo !== null && 
-      this.formGroup.valid && 
+    if(this.valorMotivo !== null &&
+      this.formGroup.valid &&
       !this.despesaService.verificarDuplicidade(this.formGroup.value) ){
       this.despesaService.adicionar(this.formGroup.value);
-      this.message = 'Despesa cadastrada com sucesso.'; 
+      this.message = 'Despesa cadastrada com sucesso.';
       this.setOpen(true);
       return true;
     }else{
@@ -67,7 +67,7 @@ export class Tab1Page {
       return false;
     }
   }
-  
+
   ver(): void{
     this.router.navigate(['/tabs/tab2'])
   }
@@ -87,6 +87,5 @@ export class Tab1Page {
   setDate(): void{
     this.formGroup.value.data = this.formGroup.value.data.substring(0, 16).split("T").join(" ")
     this.date = this.formGroup.value.data;
-    console.log('data', this.date);
   }
 }
